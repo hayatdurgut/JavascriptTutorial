@@ -47,7 +47,7 @@
                 </div>
                 <div class="card mt-3">
                     <div class="card-header">
-                        <button class="btn btn-danger btn-sm float-end">Temizle</button>
+                        <button id = "btnClear" class="btn btn-danger btn-sm float-end">Temizle</button>
                     </div>
                     <ul id="task-list" class="list-group list-group-flush">
                     </ul>
@@ -68,9 +68,19 @@ let gorevListesi=[
     {"id": 3, "gorevAdi": "Görev 3"},
     {"id": 4, "gorevAdi": "Görev 4"}
 ]
+let editId;
+let isEditTask = false;
+
+const taskInput = document.getElementById("txtTaskName"); 
+const btnClear= document.getElementById("btnClear"); 
 
 displayTasks();
 function displayTasks(){
+
+if(gorevListesi.length == 0){
+    ul.innerHTML=" <p> Görev Listesi Boş </p>"
+}
+else{
     ul.innerHTML="";
     for(let gorev of gorevListesi){
     let li= `<li class="task list-group-item">
@@ -84,7 +94,7 @@ function displayTasks(){
   </button>
   <ul class="dropdown-menu dropdown-menu-dark">
     <li><a onclick="deleteTask(${gorev.id})"  class="dropdown-item active" href="#"><i class="fa-solid fa-trash"></i> Sil</a></li>
-    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen"></i> Düzenle</a></li>
+    <li><a onclick= 'editTask(${gorev.id},"${gorev.gorevAdi}")' class="dropdown-item" href="#"><i class="fa-solid fa-pen"></i> Düzenle</a></li>
     
   </ul>
 </div>
@@ -94,6 +104,9 @@ function displayTasks(){
 ul.insertAdjacentHTML("beforeend", li);
 }
 }
+    
+}
+
 
 
 
@@ -106,14 +119,24 @@ document.querySelector("#btnAddNewTask").addEventListener("keypress", function()
 
 
 function newTask(){
-
-    let taskInput = document.getElementById("txtTaskName").value; 
-    if(taskInput==""){
+    if(taskInput.value==""){
         alert("Lütfen Görev Giriniz");
     }
    else{
-    gorevListesi.push({"id": gorevListesi.length+1, "gorevAdi": taskInput});
-    displayTasks();
+    //ekleme işlemi
+        if(!isEditTask){
+        gorevListesi.push({"id": gorevListesi.length+1, "gorevAdi": taskInput.value});
+        }
+        else{
+
+            for(let gorev of gorevListesi){
+                if(gorev.id==editId){
+                gorev.gorevAdi=taskInput.value;
+                }
+                isEditTask=false;
+            }
+        }
+        displayTasks();
    }
    
 event.preventDefault();
@@ -123,29 +146,31 @@ function deleteTask(id){
     console.log(id);
     let deletedId;
 
-//1. yol olarak  for ile listede gezerek iid bilgisine sahip verinin indeksini bulur ve splice metodu ile siler
-
-  //  for(let index in gorevListesi){
-        //if(gorevListesi[index].id == id){
-            //deletedId=index;
-       // }
-  //  }
- 
-  // 2. yol olarak görev listesinde gezinerek fındIndex metodu ile indeksini bulur. Splice metodu ile de siler
-
-    //deletedId= gorevListesi.findIndex(function(gorev){
-       // return gorev.id==id;
-   // })
-
 //3. yol olarak arrowFunction kullanılabilir. Bununla tek satırda index değeri bulunuğ döndürülebilir.
     deletedId=gorevListesi.findIndex(gorev=>gorev.id==id);
 
-
     gorevListesi.splice(deletedId,1);
     displayTasks();
+}
 
+function editTask(taskId, taskName){
+    console.log(taskId);
+    console.log(taskName);
+    editId=taskId;
+    isEditTask=true;
+    taskInput.value= taskName;
+    taskInput.focus();
+    taskInput.classList.add("active");
+   
 
 }
+// all delete task
+btnClear.addEventListener("click",function(){
+    gorevListesi.splice(0,gorevListesi.length);
+    displayTasks();
+})
+
+
 </script>
 </body>
 

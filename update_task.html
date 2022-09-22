@@ -68,6 +68,9 @@ let gorevListesi=[
     {"id": 3, "gorevAdi": "Görev 3"},
     {"id": 4, "gorevAdi": "Görev 4"}
 ]
+let editId;
+let isEditTask = false;
+let taskInput = document.getElementById("txtTaskName"); 
 
 displayTasks();
 function displayTasks(){
@@ -84,7 +87,7 @@ function displayTasks(){
   </button>
   <ul class="dropdown-menu dropdown-menu-dark">
     <li><a onclick="deleteTask(${gorev.id})"  class="dropdown-item active" href="#"><i class="fa-solid fa-trash"></i> Sil</a></li>
-    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen"></i> Düzenle</a></li>
+    <li><a onclick= 'editTask(${gorev.id},"${gorev.gorevAdi}")' class="dropdown-item" href="#"><i class="fa-solid fa-pen"></i> Düzenle</a></li>
     
   </ul>
 </div>
@@ -107,12 +110,24 @@ document.querySelector("#btnAddNewTask").addEventListener("keypress", function()
 
 function newTask(){
 
-    let taskInput = document.getElementById("txtTaskName").value; 
+   
     if(taskInput==""){
         alert("Lütfen Görev Giriniz");
     }
    else{
-    gorevListesi.push({"id": gorevListesi.length+1, "gorevAdi": taskInput});
+    //ekleme işlemi
+    if(!isEditTask){
+        gorevListesi.push({"id": gorevListesi.length+1, "gorevAdi": taskInput.value});
+    }
+    else{
+
+        for(let gorev of gorevListesi){
+            if(gorev.id==editId){
+                gorev.gorevAdi=taskInput.value;
+            }
+            isEditTask=false;
+        }
+    }
     displayTasks();
    }
    
@@ -123,29 +138,25 @@ function deleteTask(id){
     console.log(id);
     let deletedId;
 
-//1. yol olarak  for ile listede gezerek iid bilgisine sahip verinin indeksini bulur ve splice metodu ile siler
-
-  //  for(let index in gorevListesi){
-        //if(gorevListesi[index].id == id){
-            //deletedId=index;
-       // }
-  //  }
- 
-  // 2. yol olarak görev listesinde gezinerek fındIndex metodu ile indeksini bulur. Splice metodu ile de siler
-
-    //deletedId= gorevListesi.findIndex(function(gorev){
-       // return gorev.id==id;
-   // })
-
 //3. yol olarak arrowFunction kullanılabilir. Bununla tek satırda index değeri bulunuğ döndürülebilir.
     deletedId=gorevListesi.findIndex(gorev=>gorev.id==id);
 
-
     gorevListesi.splice(deletedId,1);
     displayTasks();
+}
 
+function editTask(taskId, taskName){
+    console.log(taskId);
+    console.log(taskName);
+    editId=taskId;
+    isEditTask=true;
+    taskInput.value= taskName;
+    taskInput.focus();
+    taskInput.classList.add("active");
+   
 
 }
+
 </script>
 </body>
 
