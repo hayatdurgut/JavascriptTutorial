@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card-header">
+
+
+        <h3 id="title" class="card-title">
+            To Do App
+        </h3>
+    </div>
+
+    <ul id="task-list">
+        <li class="task"> Task 1 </li>
+        <li class="task"> Task 2 </li>
+        <li class="task"> Task 3 </li>
+    </ul>
+    <ul id="task-list2">
+        <li class="task"> Task 1 </li>
+        <li class="task"> Task 2 </li>
+        <li class="task"> Task 3 </li>
+    </ul>
+<script>
+
+// get all li elements (by className)
+taskList = document.getElementsByClassName("task");
+
+// get all li elements (by tagName)
+sonuc = document.getElementsByTagName("li");
+
+// get all li elements (by tagName)
+sonuc = document.querySelectorAll("li");
+
+// get li in first indeks
+sonuc = document.getElementsByClassName("task")[0];
+
+// get li in second indeks
+sonuc = document.getElementsByClassName("task")[1];
+
+// get li in third indeks
+sonuc = document.getElementsByClassName("task")[2];
+
+// get li in first ul.
+ul= document.getElementById("task-list2");
+taskList=ul.getElementsByTagName("li");
+//----------------------------------------------------------- Using loop For to list ------------------------------//
+
+    // get li tag
+    for(let i=0 ; i<taskList ; i++){
+        console.log(taskList[i]);
+    }
+
+     // get li tag
+    for(let task of taskList){
+        console.log(task);
+    }
+
+     // get index of li tag
+    for(let task in taskList){
+        console.log(task);
+    }
+
+
+    for(let task of taskList){
+        task.style.color="blue";
+        task.style.fontSize="30px";
+        
+    }
+
+
+
+
+</script>
+</body>
+</html>

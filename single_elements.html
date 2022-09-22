@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card-header">
+
+
+        <h3 id="title" class="card-title">
+            To Do App
+        </h3>
+    </div>
+
+    <ul id="task-list">
+        <li>
+            Task 1 
+        </li>  <li>
+            Task 2 
+        </li>
+        <li>
+            Task 3
+        </li>
+
+    </ul>
+<script>
+let sonuc;
+// get h3 tag
+sonuc = document.getElementById("title");
+
+// get h3 tag id
+sonuc = document.getElementById("title").id;
+
+// get h3 class
+sonuc = document.getElementById("title").className;
+
+//get h3 classList
+sonuc = document.getElementById("title").classList;
+
+// set h3 fontSize
+document.getElementById("title").style.fontSize="30px";
+
+// set h3 color
+document.getElementById("title").style.color="red";
+
+// it hide h3 tag
+//document.getElementById("title").style.display="none";
+
+// set text of h3 tag
+document.getElementById("title").innerText="TO DO APP";
+
+// it add <i> to h3 tag
+document.getElementById("title").innerHTML="<i> TO DO APP </i>";
+
+//get h3 tag (get by Id)
+sonuc = document.querySelector("#title");
+
+// get h3 tag (get by class)
+sonuc= document.querySelector(".card-Header");
+
+// get div (get by tag)
+sonuc = document.querySelector("div");
+
+// get first li tag
+sonuc = document.querySelector("li");
+
+//get first li tag
+sonuc = document.querySelector("li:first-child");
+
+//get last li tag
+sonuc = document.querySelector("li:last-child");
+
+// get second li ( get by child index)
+sonuc = document.querySelector("li:nth-child(2)");
+
+
+</script>
+</body>
+</html>
